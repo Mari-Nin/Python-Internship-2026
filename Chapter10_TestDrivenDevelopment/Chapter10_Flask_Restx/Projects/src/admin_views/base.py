@@ -6,14 +6,22 @@ from flask_login import current_user
 
 class SecureModelView(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.is_admin()
+
+        return (
+            current_user.is_authenticated
+            and current_user.name == "Barusiko1"
+        )
 
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('auth.login', next=request.url))
 
 class SecureIndexView(AdminIndexView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.is_admin()
+
+        return (
+            current_user.is_authenticated 
+            and current_user.name == "Barusiko1"
+        )
 
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('auth.login', next=request.url))

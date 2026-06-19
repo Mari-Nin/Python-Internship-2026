@@ -17,13 +17,16 @@ class LoginAPI(Resource):
         if not user:
             return 'Not Found', 404
 
-        if not check_password_hash(user.password, args['password']):
+        if not check_password_hash(user._password, args['password']):
             return 'Incorrect password', 401
 
         response = {
-            'access_token': create_access_token(identity=str(user.id), additional_claims={'role': user.role}),
-            'refresh_token': create_refresh_token(identity=str(user.id))
-        }
+            'access_token': create_access_token(
+            identity=str(user.id),
+            additional_claims={'role': user.role}
+        ),
+        'refresh_token': create_refresh_token(identity=str(user.id))
+            }
 
         return response, 200
 

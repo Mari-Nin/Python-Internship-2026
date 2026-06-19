@@ -7,7 +7,8 @@ from src.admin_views.base import SecureModelView
 from src.models import Product
 from src.config import Config
 from src.admin_views.utils import generate_name
-
+from wtforms_sqlalchemy.fields import QuerySelectField
+from src.models import Category
 
 class ProductView(SecureModelView):
     can_delete = True
@@ -19,12 +20,10 @@ class ProductView(SecureModelView):
 
 
     column_editable_list = ['price', 'name']
-
     column_filters = ['price', 'category']
-
     column_searchable_list = ['name']
-
-    column_list = ['img', 'price']
+    column_list = ['name', 'price', 'category', 'img']
+    form_columns = ['name', 'price', 'img', 'category']
 
     can_view_details = True
     details_modal = True
@@ -32,16 +31,21 @@ class ProductView(SecureModelView):
     can_export = True
 
     form_overrides = {
-        'img': ImageUploadField,
-    }
+    'img': ImageUploadField,
+    'category': QuerySelectField
+}
 
     form_args = {
-        'img': {
-            'base_path': Config.UPLOAD_PATH,
-            'relative_path': 'uploads/',
-            'namegen': generate_name,
-        }
+    'img': {
+        'base_path': Config.UPLOAD_PATH,
+        'relative_path': 'uploads/',
+        'namegen': generate_name,
+    },
+    'category': {
+        'query_factory': lambda: Category.query.all(),
+        'get_label': 'name'
     }
+}
 
     column_formatters = {
         'img': lambda v, c, m, n: Markup(f'<img src={url_for("static", filename=m.img)} width="100">'),
@@ -69,6 +73,7 @@ class ProductInline(InlineFormAdmin):
 
 class CategoryView(SecureModelView):
     inline_models = (ProductInline(Product),)
+    
 
     can_delete = True
     can_create = True

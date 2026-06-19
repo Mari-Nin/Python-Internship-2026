@@ -29,13 +29,13 @@ def populate_db():
         category.create()
 
     piano1 = Product(name="ელექტრო პიანინო CASIO AP-270BNC2", price=10099.00,
-                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category_id=category1.id)
+                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category=category1)
     piano2 = Product(name="ელექტრო პიანინო AP-270BNC2", price=599.00,
-                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category_id=category2.id)
+                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category=category2)
     piano3 = Product(name="ელექტრო CASIO AP-270BNC2", price=9.00,
-                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category_id=category3.id)
+                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category=category3)
     piano4 = Product(name="პიანინო CASIO AP-270BNC2", price=99.00,
-                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category_id=category1.id)
+                     img="https://musicroom.ge/wp-content/uploads/2025/09/s-l1600-3.jpg", category=category1)
 
     pianos = [piano1, piano2, piano3, piano4]
 
